@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guia Eco-Itapema: Transforme Óleo em Vida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --ocean-deep:    #0a2540;
+      --ocean-mid:     #0e4d72;
+      --ocean-bright:  #0f7db8;
+      --ocean-light:   #50b8e7;
+      --foam:          #c8eaf8;
+      --green-deep:    #0d5c3a;
+      --green-mid:     #1a8a57;
+      --green-bright:  #2abf72;
+      --green-light:   #8de8b8;
+      --sand:          #f5f0e8;
+      --cream:         #fafaf7;
+      --text-main:     #0a2540;
+      --text-soft:     #3a5a72;
+      --white:         #ffffff;
+      --radius-lg:     20px;
+      --radius-xl:     32px;
+      --shadow-card:   0 8px 40px rgba(10,37,64,0.13);
+      --shadow-glow:   0 0 40px rgba(15,125,184,0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      background: linear-gradient(160deg, var(--ocean-deep) 0%, var(--ocean-mid) 55%, var(--green-deep) 100%);
+      padding: 56px 24px 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(15,125,184,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 35% at 10% 80%, rgba(42,191,114,0.2) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* animated wave rings */
+    .hero-rings {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      pointer-events: none;
+    }
+    .hero-rings span {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(80,184,231,0.15);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: ringPulse 6s ease-out infinite;
+    }
+    .hero-rings span:nth-child(1) { width: 200px; height: 200px; animation-delay: 0s; }
+    .hero-rings span:nth-child(2) { width: 340px; height: 340px; animation-delay: 1.5s; }
+    .hero-rings span:nth-child(3) { width: 490px; height: 490px; animation-delay: 3s; }
+    @keyframes ringPulse {
+      0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+      30%  { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(1.1); }
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(42,191,114,0.18);
+      border: 1px solid rgba(42,191,114,0.4);
+      color: var(--green-light);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .hero-icon-wrap {
+      position: relative;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 88px; height: 88px;
+      background: linear-gradient(135deg, var(--ocean-bright), var(--green-mid));
+      border-radius: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 16px 40px rgba(15,125,184,0.4);
+      position: relative;
+    }
+    .hero-icon-wrap i { font-size: 2.2rem; color: #fff; }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 6vw, 2.8rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .hero h1 span { color: var(--green-light); }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.7);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      margin-bottom: 0;
+      position: relative;
+    }
+
+    /* wave divider */
+    .wave-divider {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      margin-top: -2px;
+    }
+    .wave-divider svg { display: block; }
+
+    /* ── MAIN CONTENT ── */
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* ── INFO CARD ── */
+    .info-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 28px 24px;
+      margin-top: -36px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(10,37,64,0.06);
+      position: relative;
+    }
+
+    .info-card p {
+      font-size: 0.93rem;
+      line-height: 1.7;
+      color: var(--text-soft);
+    }
+    .info-card p strong { color: var(--ocean-mid); }
+
+    .beach-pills {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 14px;
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--foam);
+      color: var(--ocean-mid);
+      font-size: 0.78rem; font-weight: 600;
+      padding: 5px 12px; border-radius: 100px;
+    }
+
+    /* ── FACT STRIP ── */
+    .fact-strip {
+      display: flex; gap: 12px;
+      margin: 20px 0;
+    }
+    .fact-item {
+      flex: 1;
+      background: linear-gradient(135deg, var(--ocean-deep), var(--ocean-mid));
+      border-radius: var(--radius-lg);
+      padding: 20px 14px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 6px 24px rgba(10,37,64,0.2);
+    }
+    .fact-item .fact-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem; font-weight: 900;
+      color: var(--ocean-light);
+      display: block; line-height: 1;
+    }
+    .fact-item .fact-num span { font-size: 1rem; }
+    .fact-item p { font-size: 0.72rem; margin-top: 6px; opacity: 0.8; line-height: 1.4; }
+
+    /* ── CALCULATOR ── */
+    .calc-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(10,37,64,0.06);
+      margin-bottom: 20px;
+    }
+
+    .section-label {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+    .section-label .icon-dot {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--green-mid), var(--ocean-bright));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .section-label .icon-dot i { color: #fff; font-size: 0.9rem; }
+    .section-label h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .input-group {
+      margin-bottom: 18px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 0.85rem; font-weight: 500;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+    .input-wrap {
+      position: relative;
+    }
+    .input-wrap i {
+      position: absolute; left: 16px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--ocean-bright); font-size: 1rem;
+    }
+    .input-wrap input {
+      width: 100%;
+      padding: 15px 16px 15px 44px;
+      font-size: 1.05rem; font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      border: 2px solid var(--foam);
+      border-radius: 14px;
+      background: var(--cream);
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    .input-wrap input:focus {
+      border-color: var(--ocean-bright);
+      box-shadow: 0 0 0 4px rgba(15,125,184,0.12);
+      background: #fff;
+    }
+    .input-wrap input::placeholder { color: #aac4d4; }
+
+    .btn-calc {
+      width: 100%;
+      padding: 17px;
+      font-size: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #fff;
+      background: linear-gradient(135deg, var(--green-mid) 0%, var(--ocean-bright) 100%);
+      border: none; border-radius: 14px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      box-shadow: 0 8px 24px rgba(26,138,87,0.35);
+      transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+      position: relative; overflow: hidden;
+    }
+    .btn-calc::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+      pointer-events: none;
+    }
+    .btn-calc:active { transform: scale(0.97); box-shadow: 0 4px 12px rgba(26,138,87,0.25); }
+    .btn-calc:hover  { filter: brightness(1.06); }
+
+    /* ── RESULT ── */
+    #result-section {
+      display: none;
+      animation: fadeUp 0.45s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-hero {
+      background: linear-gradient(160deg, var(--ocean-deep), var(--green-deep));
+      border-radius: var(--radius-xl);
+      padding: 32px 24px;
+      text-align: center;
+      margin-bottom: 16px;
+      position: relative; overflow: hidden;
+      box-shadow: var(--shadow-glow);
+    }
+    .result-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(80,184,231,0.18), transparent 70%);
+    }
+
+    .result-hero .drop-icon {
+      font-size: 2.8rem; margin-bottom: 10px;
+      display: block;
+      animation: dropBounce 1.2s ease infinite alternate;
+    }
+    @keyframes dropBounce {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-8px); }
+    }
+
+    .result-hero .volume-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 9vw, 3.4rem);
+      font-weight: 900;
+      color: var(--ocean-light);
+      display: block; line-height: 1;
+      position: relative;
+    }
+    .result-hero .volume-unit {
+      font-size: 1rem; color: rgba(255,255,255,0.6);
+      font-weight: 400; display: block;
+      margin-top: 4px; margin-bottom: 14px;
+    }
+    .result-hero .result-label {
+      font-size: 0.85rem; color: rgba(255,255,255,0.8);
+      line-height: 1.5; position: relative;
+    }
+
+    .result-compare {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      display: flex; align-items: center; gap: 16px;
+      box-shadow: 0 4px 20px rgba(10,37,64,0.08);
+      border: 1px solid rgba(10,37,64,0.06);
+      margin-bottom: 16px;
+    }
+    .compare-icon-wrap {
+      width: 54px; height: 54px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--foam), #d0f0ff);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+    }
+    .result-compare p { font-size: 0.9rem; color: var(--text-soft); line-height: 1.55; }
+    .result-compare p strong { color: var(--ocean-mid); font-size: 1rem; }
+
+    .result-impact {
+      background: linear-gradient(135deg, var(--green-deep), var(--green-mid));
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex; align-items: center; gap: 14px;
+      box-shadow: 0 4px 20px rgba(13,92,58,0.2);
+      margin-bottom: 20px;
+    }
+    .result-impact i { font-size: 1.5rem; color: var(--green-light); flex-shrink: 0; }
+    .result-impact p { font-size: 0.88rem; color: rgba(255,255,255,0.88); line-height: 1.55; }
+    .result-impact p strong { color: #fff; }
+
+    /* share btn */
+    .btn-share {
+      width: 100%;
+      padding: 15px;
+      font-size: 0.9rem; font-family: 'DM Sans', sans-serif; font-weight: 600;
+      color: var(--ocean-mid);
+      background: var(--foam);
+      border: 2px solid rgba(15,125,184,0.2);
+      border-radius: 14px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-share:hover { background: rgba(15,125,184,0.12); }
+
+    /* ── WHERE TO DISPOSE ── */
+    .dispose-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(10,37,64,0.06);
+      margin-bottom: 20px;
+    }
+
+    .dispose-list { list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .dispose-list li {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: var(--cream);
+      border-radius: 14px;
+      padding: 14px 16px;
+      border: 1px solid rgba(10,37,64,0.06);
+    }
+    .dispose-list li .di-icon {
+      width: 38px; height: 38px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--green-mid), var(--ocean-bright));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dispose-list li .di-icon i { color: #fff; font-size: 0.85rem; }
+    .dispose-list li .di-info { flex: 1; }
+    .dispose-list li .di-name { font-weight: 600; font-size: 0.9rem; color: var(--text-main); }
+    .dispose-list li .di-addr { font-size: 0.78rem; color: var(--text-soft); margin-top: 2px; line-height: 1.4; }
+    .dispose-list li .di-tag {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green-deep);
+      font-size: 0.68rem; font-weight: 700;
+      padding: 2px 8px; border-radius: 100px; margin-top: 4px;
+    }
+
+    /* ── TIPS ── */
+    .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .tip-item {
+      background: var(--cream);
+      border-radius: 14px;
+      padding: 16px 14px;
+      border: 1px solid rgba(10,37,64,0.06);
+      text-align: center;
+    }
+    .tip-item i { font-size: 1.4rem; color: var(--ocean-bright); margin-bottom: 8px; }
+    .tip-item p { font-size: 0.78rem; color: var(--text-soft); line-height: 1.45; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ocean-deep);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.8rem; line-height: 1.7;
+    }
+    footer .footer-logo {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-bottom: 12px;
+    }
+    footer .footer-logo i { font-size: 1.4rem; color: var(--green-light); }
+    footer .footer-logo span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700; color: #fff;
+    }
+    footer a { color: var(--ocean-light); text-decoration: none; }
+    footer .footer-divider { width: 40px; height: 1px; background: rgba(255,255,255,0.15); margin: 14px auto; }
+
+    /* ── SECTION SPACING ── */
+    .section-gap { margin-top: 20px; }
+
+    /* ── RESPONSIVE tweaks ── */
+    @media (max-width: 360px) {
+      .fact-strip { flex-direction: column; }
+      .tips-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<header class="hero">
+  <div class="hero-rings">
+    <span></span><span></span><span></span>
+  </div>
+
+  <div class="hero-badge">
+    <i class="fa-solid fa-leaf"></i>
+    Projeto de Extensão Universitária
+  </div>
+
+  <div class="hero-icon-wrap" style="margin: 0 auto 24px;">
+    <i class="fa-solid fa-droplet"></i>
+  </div>
+
+  <h1>Guia Eco-Itapema:<br><span>Transforme Óleo em Vida</span></h1>
+  <p class="hero-sub" style="margin-top:12px;">Calculadora de Impacto de Descarte de Óleo</p>
+</header>
+
+<svg class="wave-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 54" preserveAspectRatio="none" style="background:var(--ocean-deep)">
+  <path fill="#fafaf7" d="M0,32 C360,64 1080,0 1440,32 L1440,54 L0,54 Z"/>
+</svg>
+
+<!-- ══════════════════ MAIN ══════════════════ -->
+<main class="container">
+
+  <!-- INFO CARD -->
+  <div class="info-card">
+    <p>
+      Em <strong>Itapema-SC</strong>, a beleza das nossas praias depende diretamente da qualidade do esgoto e das águas costeiras.
+      O descarte incorreto de óleo de cozinha — pelo ralo ou lixo comum — contamina rios, o solo e
+      chega ao mar, ameaçando a <strong>balneabilidade das praias</strong> e toda a biodiversidade marinha.
+      <br /><br />
+      Reciclar é um gesto simples que protege o nosso litoral.
+    </p>
+    <div class="beach-pills">
+      <span class="pill"><i class="fa-solid fa-water"></i> Meia Praia</span>
+      <span class="pill"><i class="fa-solid fa-water"></i> Praia Central</span>
+      <span class="pill"><i class="fa-solid fa-water"></i> Cabeçudas</span>
+      <span class="pill"><i class="fa-solid fa-water"></i> Ilhota</span>
+    </div>
+  </div>
+
+  <!-- FACT STRIP -->
+  <div class="fact-strip section-gap">
+    <div class="fact-item">
+      <span class="fact-num">25<span>mil</span></span>
+      <p>litros de água contaminados por 1 litro de óleo</p>
+    </div>
+    <div class="fact-item">
+      <span class="fact-num">20<span>anos</span></span>
+      <p>pode levar para o solo se recuperar da contaminação</p>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-card section-gap">
+    <div class="section-label">
+      <div class="icon-dot"><i class="fa-solid fa-calculator"></i></div>
+      <h2>Calcule seu Impacto</h2>
+    </div>
+
+    <div class="input-group">
+      <label for="oil-input">Quantos litros de óleo você descarta por mês?</label>
+      <div class="input-wrap">
+        <i class="fa-solid fa-flask"></i>
+        <input
+          type="number"
+          id="oil-input"
+          placeholder="Ex: 2"
+          min="0"
+          step="0.1"
+          inputmode="decimal"
+        />
+      </div>
+    </div>
+
+    <button class="btn-calc" onclick="calcular()">
+      <i class="fa-solid fa-bolt"></i>
+      Calcular Impacto
+    </button>
+  </div>
+
+  <!-- RESULT -->
+  <section id="result-section">
+
+    <div class="result-hero">
+      <span class="drop-icon">💧</span>
+      <span class="volume-num" id="res-volume">—</span>
+      <span class="volume-unit">litros de água preservados por mês</span>
+      <p class="result-label">
+        É a quantidade de água que você ajuda a<br><strong style="color:#fff;">proteger reciclando seu óleo!</strong>
+      </p>
+    </div>
+
+    <div class="result-compare">
+      <div class="compare-icon-wrap">🛁</div>
+      <p id="res-compare">—</p>
+    </div>
+
+    <div class="result-impact">
+      <i class="fa-solid fa-fish"></i>
+      <p id="res-impact">—</p>
+    </div>
+
+    <button class="btn-share" onclick="compartilhar()">
+      <i class="fa-solid fa-share-nodes"></i>
+      Compartilhar meu impacto
+    </button>
+
+    <div style="height:20px;"></div>
+  </section>
+
+  <!-- WHERE TO DISPOSE -->
+  <div class="dispose-card section-gap">
+    <div class="section-label">
+      <div class="icon-dot"><i class="fa-solid fa-map-location-dot"></i></div>
+      <h2>Onde Descartar em Itapema?</h2>
+    </div>
+
+    <ul class="dispose-list">
+      <li>
+        <div class="di-icon"><i class="fa-solid fa-store"></i></div>
+        <div class="di-info">
+          <div class="di-name">Supermercado Koch</div>
+          <div class="di-addr">📍 Adicione o endereço da unidade de Itapema aqui</div>
+          <span class="di-tag">Ponto de Coleta</span>
+        </div>
+      </li>
+      <li>
+        <div class="di-icon"><i class="fa-solid fa-store"></i></div>
+        <div class="di-info">
+          <div class="di-name">Supermercado Angeloni</div>
+          <div class="di-addr">📍 Adicione o endereço da unidade de Itapema aqui</div>
+          <span class="di-tag">Ponto de Coleta</span>
+        </div>
+      </li>
+      <li>
+        <div class="di-icon"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="di-info">
+          <div class="di-name">Prefeitura Municipal de Itapema</div>
+          <div class="di-addr">📍 Adicione o endereço e horário de funcionamento aqui</div>
+          <span class="di-tag">Ponto de Coleta</span>
+        </div>
+      </li>
+      <li>
+        <div class="di-icon"><i class="fa-solid fa-plus"></i></div>
+        <div class="di-info">
+          <div class="di-name">Adicionar Novo Ponto</div>
+          <div class="di-addr">📍 Insira aqui outros pontos de coleta identificados pela equipe</div>
+          <span class="di-tag">Ponto de Coleta</span>
+        </div>
+      </li>
+    </ul>
+
+    <p style="font-size:0.8rem;color:var(--text-soft);margin-top:16px;line-height:1.5;">
+      <i class="fa-solid fa-circle-info" style="color:var(--ocean-bright);"></i>
+      &nbsp;Guarde o óleo resfriado em garrafas PET fechadas antes de levar ao ponto de coleta.
+    </p>
+  </div>
+
+  <!-- TIPS -->
+  <div class="calc-card section-gap">
+    <div class="section-label">
+      <div class="icon-dot"><i class="fa-solid fa-lightbulb"></i></div>
+      <h2>Como Armazenar Corretamente</h2>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-item">
+        <i class="fa-solid fa-temperature-arrow-down"></i>
+        <p>Espere o óleo <strong>esfriar</strong> completamente antes de guardar</p>
+      </div>
+      <div class="tip-item">
+        <i class="fa-brands fa-reddit-alien" style="display:none;"></i>
+        <i class="fa-solid fa-bottle-water"></i>
+        <p>Use garrafas <strong>PET</strong> limpas e com tampa</p>
+      </div>
+      <div class="tip-item">
+        <i class="fa-solid fa-ban"></i>
+        <p>Nunca misture com água ou outros resíduos</p>
+      </div>
+      <div class="tip-item">
+        <i class="fa-solid fa-recycle"></i>
+        <p>Entregue nos pontos de coleta com a garrafa <strong>fechada</strong></p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <div class="footer-logo">
+    <i class="fa-solid fa-seedling"></i>
+    <span>Eco-Itapema</span>
+  </div>
+  <div>
+    <strong style="color:#fff;">Projeto de Extensão</strong><br>
+    Sistemas de Informação e Sociedade<br>
+    Educação Ambiental — Itapema, SC
+  </div>
+  <div class="footer-divider"></div>
+  <div>
+    Desenvolvido com 💙 para preservar as praias de Itapema<br>
+    <span style="font-size:0.72rem;opacity:0.5;">1 L de óleo · 25.000 L de água · Sua escolha importa</span>
+  </div>
+</footer>
+
+<!-- ══════════════════ JS ══════════════════ -->
+<script>
+  const LITROS_POR_LITRO = 25000;
+
+  function fmt(n) {
+    if (n >= 1_000_000) return (n / 1_000_000).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' milhões';
+    return n.toLocaleString('pt-BR');
+  }
+
+  function calcular() {
+    const input = document.getElementById('oil-input');
+    const val   = parseFloat(input.value.replace(',', '.'));
+
+    if (!val || val <= 0 || isNaN(val)) {
+      input.focus();
+      input.style.borderColor = '#e05252';
+      input.style.boxShadow   = '0 0 0 4px rgba(224,82,82,0.12)';
+      setTimeout(() => {
+        input.style.borderColor = '';
+        input.style.boxShadow   = '';
+      }, 1600);
+      return;
+    }
+
+    const aguaTotal    = Math.round(val * LITROS_POR_LITRO);
+    const caixas1000   = Math.round(aguaTotal / 1000);
+    const piscinasMed  = (aguaTotal / 75000).toFixed(1);
+    const banheiras    = Math.round(aguaTotal / 150);
+
+    // volume principal
+    document.getElementById('res-volume').textContent = fmt(aguaTotal);
+
+    // comparação
+    let compare = '';
+    if (caixas1000 >= 1) {
+      compare = `Isso equivale a aproximadamente <strong>${fmt(caixas1000)} caixa${caixas1000 !== 1 ? 's' : ''} d'água de 1.000 litros</strong> — água limpa que pode ser poupada ao reciclar corretamente seu óleo.`;
+    } else {
+      compare = `Isso equivale a <strong>${fmt(aguaTotal)} litros</strong> de água limpa preservada — o equivalente a diversas cisternas domésticas.`;
+    }
+    document.getElementById('res-compare').innerHTML = compare;
+
+    // impacto ambiental
+    let impact = '';
+    if (piscinasMed >= 1) {
+      impact = `<strong>Mais impacto:</strong> com esse óleo reciclado por um ano, você preservaria o equivalente a <strong>${(piscinasMed * 12).toFixed(0)} piscinas semiolímpicas</strong> de água limpa — protegendo os ecossistemas marinhos das praias de Itapema.`;
+    } else {
+      impact = `<strong>Cada gota conta:</strong> reciclando seus ${val} L/mês ao longo de um ano, você evitará que <strong>${fmt(aguaTotal * 12)} litros de água</strong> sejam contaminados — equivalente a ${Math.round(banheiras * 12)} banheiras cheias.`;
+    }
+    document.getElementById('res-impact').innerHTML = impact;
+
+    // mostra seção
+    const sec = document.getElementById('result-section');
+    sec.style.display = 'block';
+    sec.style.animation = 'none';
+    sec.offsetHeight; // reflow
+    sec.style.animation = '';
+
+    // scroll suave
+    setTimeout(() => {
+      sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+  }
+
+  async function compartilhar() {
+    const volume = document.getElementById('res-volume').textContent;
+    const texto  = `♻️ Eu ajudo a preservar ${volume} litros de água por mês reciclando meu óleo de cozinha! Descubra seu impacto no Guia Eco-Itapema 🌊🌱`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'Guia Eco-Itapema', text: texto });
+      } catch (e) { /* cancelado */ }
+    } else {
+      navigator.clipboard?.writeText(texto).then(() => {
+        alert('Mensagem copiada! Cole e compartilhe onde quiser 🌊');
+      }).catch(() => {
+        alert(texto);
+      });
+    }
+  }
+
+  // Enter key no input
+  document.getElementById('oil-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') calcular();
+  });
+</script>
+
+</body>
+</html>
